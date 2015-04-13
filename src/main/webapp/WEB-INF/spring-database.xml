@@ -22,6 +22,7 @@
 			<list>
 				<value>orm/Users.hbm.xml</value>
 				<value>orm/UserRoles.hbm.xml</value>
+				<value>orm/Vm.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -36,9 +37,18 @@
 	<bean id="userDao" class="com.privatecloud.users.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="vmDao" class="com.privatecloud.users.dao.VmDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<bean id="myUserDetailsService" class="com.privatecloud.users.service.MyUserDetailsService">
 		<property name="userDao" ref="userDao" />
+	</bean>
+	
+	<bean id="vMService" class="com.privatecloud.users.service.VMService">
+	<property name="userDao" ref="userDao" />
+		<property name="vmDao" ref="vmDao" />
 	</bean>
 
 	<bean id="transactionManager"

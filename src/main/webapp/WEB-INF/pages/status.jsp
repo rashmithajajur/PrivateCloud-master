@@ -59,6 +59,61 @@
 					<li><a href="${logoutUrl}">Logout</a></li>
 				  </ul>
             </div>
+            
+            
+
+
+  
+  
+<%--     	<form:form role="form" action="${shst}" method="POST"  modelAttribute="status"> --%>
+<!-- 	<div class="form-group"> -->
+	
+<!-- 	 <button type="submit">Status</button> -->
+//<c:url var="shst" value="/status"/>
+<div class="table">
+ 
+  <div class="container">
+      <h3>Status of VM</h3>
+      <div class="table-responsive">          
+      <table class="table">
+        <thead>
+          <tr>
+          <th>VM name</th>
+        <th> Power STATUS</th>
+        <th>Connection Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class= "sucess">
+           <tr>   
+           <%-- 
+           <c:forEach items="${shw}" varStatus="element" begin="0" end="2"> 
+           <c:forEach items="${element}" varStatus="a">
+            [${a.index}]: ${element[a.index]}<br/>
+			    <td>${a}</td> 
+			   
+			  
+			</c:forEach>
+			</c:forEach></tr>
+			--%>
+			<c:forEach items="${shw}" var="element">
+			<tr>
+				<td>${element.vmName}</td>
+				<td>${element.vmState}</td>
+				<td>${element.vmConn}</td>
+			</tr>
+			</c:forEach>
+			
+        </tbody>
+         
+		</table>
+</div>
+        			
+	    </div>
+  </div>
+    </div>
+
+	
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->

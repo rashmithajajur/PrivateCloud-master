@@ -86,73 +86,8 @@ Start Main Content
 </form>
 
 
-<!-- <div class="btn-group"> -->
-<!--     <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown"> -->
-<!--         Select Operating System <span class="caret"></span> -->
-<!--     </button> -->
-<!--     <ul class="dropdown-menu" role="menu"> -->
-<!--         <li><a href="#">Windows</a></li> -->
-<!--         <li><a href="#">Linux</a></li> -->
-<!--         <li><a href="#">Ubuntu</a></li> -->
-<!--     </ul> -->
-<!-- </div> -->
+<h3> VM CREATED </h3>
 
-<!-- <h3> Select Operating System</h3> -->
-<!-- <div class="radio"> -->
-<!--   <label><input type="radio" name="optradio">Windows</label> -->
-<!-- </div> -->
-<!-- <div class="radio"> -->
-<!--   <label><input type="radio" name="optradio">Ubuntu</label> -->
-<!-- </div> -->
-
-<%-- <c:url var="crs" value="/crvm"/> --%>
-
-<!-- <div class="container"> -->
-<!--   <h2>Form control: inline radio buttons</h2> -->
-<!--   <p>The form below contains three inline radio buttons:</p> -->
-<%--   <form role="form"> --%>
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 1 -->
-<!--     </label> -->
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 2 -->
-<!--     </label> -->
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 3 -->
-<!--     </label> -->
-<%--   </form> --%>
-<!-- </div> -->
-<c:url var="vm" value="/vm"/>
-  
-    	<form:form role="form" action="${vm}" method="POST"  modelAttribute="vm">
-	<div class="form-group">
-	
-	 <label class="radio-inline">
-      <input path="os" value="win" type="radio" name="os" id="os">Windows
-    </label>
-    <label class="radio-inline">
-      <input path="os" value="ubu"  type="radio" name="os" id="os">Ubuntu
-    </label> 
-    
-<!-- 	<label for="Id">Id</label> -->
-        <!-- <input path="vm"  id="vmname" type="text" name="vmname" value=""  class="form-control" 
-        placeholder="Enter VM Name"> -->
-        <br>
-        <br>
-       
-    	<label for="vmname">VM Name:
-        <input path="vmname"  id="vmname" type="text" name="vmname" value=""  class="form-control" 
-        placeholder="Enter VM Name">        
-        </label>
-        <br>
-        <label for="vmname">VM status:
-        <input path="stat"  id="stat" type="text" name="stat" value=""  class="form-control" 
-        placeholder="Enter Select">
-        </label>
-    </div>
-    <button type="submit">Add VM </button>
-    
-</form:form>
 
 <!-- End Main Content -->
 </div>

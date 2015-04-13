@@ -13,12 +13,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.privatecloud.users.dao.UserDao;
+import com.privatecloud.users.dao.VmDao;
 import com.privatecloud.users.model.UserRoles;
+import com.privatecloud.users.model.Vm;
 
 public class MyUserDetailsService implements UserDetailsService {
 
 	private UserDao userDao;
-
+	private VmDao vmDao;
+	
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
@@ -34,15 +37,14 @@ public class MyUserDetailsService implements UserDetailsService {
 			}
 
 		});*/
-		
 		com.privatecloud.users.model.Users user = userDao.findByUserName(username);
 		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 
 		return buildUserForAuthentication(user, authorities);
 		
-
 	}
 
+	
 	// Converts com.privatecloud.users.model.Users user to
 	// org.springframework.security.core.userdetails.User
 	private User buildUserForAuthentication(com.privatecloud.users.model.Users user, List<GrantedAuthority> authorities) {
@@ -71,4 +73,12 @@ public class MyUserDetailsService implements UserDetailsService {
 		this.userDao = userDao;
 	}
 	
+	public VmDao getVmDao()
+	{
+		return vmDao;
+	}
+	public void setVmDao(VmDao vmDao)
+	{
+		this.vmDao = vmDao;
+	}
 }

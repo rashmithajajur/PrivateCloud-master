@@ -72,26 +72,91 @@
 	<div class="welcome">
 		<c:choose>
 		    <c:when test="${pageContext.request.userPrincipal.name != null}">
-		       <h1>Welcome,${pageContext.request.userPrincipal.name}</h1>
+		       <h1>Welcome ${pageContext.request.userPrincipal.name}</h1>
 		    </c:when>
 		    <c:otherwise>
 		       <h1>Welcome,user</h1>
 		    </c:otherwise>
 		</c:choose>
-		<form class="form-HOME" action="<c:url value='/createVM' />" method='GET'>
+		
+		<div class="container">
+  <h2></h2>
+      <a  href="<c:url value='/createVM' />" class="btn btn-info" role="button">Create VM</a>
+      <a  href="<c:url value='/status' />" class="btn btn-info" role="button">VM Status</a>
+      <a  href="<c:url value='/stats' />" class="btn btn-info" role="button">VM Statistics</a>
+ 
+</div>
+		 			  
+		<div class="table">
+ 
+  <div class="container">
+      <h3>Last of all Virtual Machines</h3>
+      <div class="table-responsive">          
+      <table class="table table-striped">
+        <thead>
+          <tr>
+          <th>ID</th>
+          <th>VM's</th>
+        <th>STATUS</th>
+        </tr>
+        </thead>
+        <tbody>
+       
+              <c:forEach items="${vms}" var="element"> 
+           <tr class= "sucess">
+			    <td>${element.id}</td>
+			    <td>${element.vmname}</td>
+			    <td>${element.stat}</td>
+			   
+			  </tr>
+			</c:forEach>
+		
+        </tbody>
+         
+		</table>
+</div>
+        			
+	    </div>
+  </div>
+<%-- 		<p>${Vm.vmname}</p> --%>
+<!--                 <tr> -->
+<%--                     <td><c:out value="${Vm}" /></td> --%>
+<%--                     <td><c:out value="${vm.vmname}" /></td> --%>
+<%--                     <td><c:out value="${vm.stats}" /></td> --%>
+<%--                     <td><c:out value="${user.profession}" /></td> --%>
+               
+          
+<%-- 		<form class="form-HOME" action="<c:url value='/createVM' />" method='GET'> --%>
+<br>
+<br>
 
-				<button type="submit">Create VM</button>
-				 </form>
-				<form class="form-HOME" action="<c:url value='/status' />" method='GET'>
+<!-- <div id="createvm"> -->
+<%--   <a class="btn btn-large btn-info" href="<c:url value='/createVM' />">Create VM</a> --%>
+<!-- </div> -->
 
-				<button type="submit">VM status</button>
-				 </form>
-				 <form class="form-HOME" action="<c:url value='/stats' />" method='GET'>
+<!-- <br> -->
 
-				<button type="submit">VM stats</button>
-				 </form>
-			
-			
+
+<!-- <div id="vmstatus"> -->
+<%--   <a class="btn btn-large btn-info" href="<c:url value='/status' />">VM Status</a> --%>
+<!-- </div> -->
+
+<!-- <br> -->
+
+
+<!-- <div id="vmstats"> -->
+<%--   <a class="btn btn-large btn-info" href="<c:url value='/stats' />">VM Statistics</a> --%>
+<!-- </div> -->
+
+<!-- <table> -->
+<%-- 			<c:forEach items="${vms}" var="element">  --%>
+<!-- 			  <tr> -->
+<%-- 			    <td>${element.id}</td> --%>
+<%-- 			    <td>${element.vmname}</td> --%>
+<%-- 			    <td>${element.stat}</td> --%>
+<!-- 			  </tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 			</table> -->
     </div>
 </div>
 <!-- End Main Content -->

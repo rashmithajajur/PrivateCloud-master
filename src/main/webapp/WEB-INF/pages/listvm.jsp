@@ -55,7 +55,7 @@
             <c:url value="/home" var="homeUrl" />
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="navController">
                 <ul class="nav navbar-nav">
-					<li><a href="${homeUrl}">Home</a></li> 
+					<li><a href="${homeUrl} ">Home</a></li> 
 					<li><a href="${logoutUrl}">Logout</a></li>
 				  </ul>
             </div>
@@ -67,93 +67,64 @@
     <div class="container">
 
 <div class="row">	
-<br>
-<br>
-Start Main Content
-<%-- <form action="/output/" name="InputCacheCheck" method="post"> --%>
-<!-- <div class="input-prepend input-append"> -->
-<!-- 	<div class="btn-group"> -->
+<!-- Start Main Content -->
+<div class="brand col-sm-6">
+	<div class="welcome">
+		<c:choose>
+		    <c:when test="${pageContext.request.userPrincipal.name != null}">
+		       <h1>Welcome ${pageContext.request.userPrincipal.name}</h1>
+		    </c:when>
+		    <c:otherwise>
+		       <h1>Welcome,user</h1>
+		    </c:otherwise>
+		</c:choose>
 		
-<!-- 		<button class="btn dropdown-toggle" name="os" data-toggle="dropdown">Operating System -->
-<!-- 		<span class="caret"></span></button> -->
-<!-- 		<ul class="dropdown-menu"> -->
-<!-- 		<li><a href="#">Windows</a></li> -->
-<!-- 		<li><a href="#">Ubuntu</a></li> -->
-<!-- 		</ul> -->
 
-<!--     </div> -->
-<!-- </div> -->
-</form>
+		
+<!--                 <tr> -->
+<%--                     <td><c:out value="${vm}" /></td> --%>
+<%--                     <td><c:out value="${vm.vmname}" /></td> --%>
+<%--                     <td><c:out value="${vm.stats}" /></td> --%>
+<%-- <%--                     <td><c:out value="${user.profession}" /></td> --%> 
+<!--                 </tr> -->
+          
+<%-- 		<form class="form-HOME" action="<c:url value='/createVM' />" method='GET'> --%>
+<br>
+<br>
 
-
-<!-- <div class="btn-group"> -->
-<!--     <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown"> -->
-<!--         Select Operating System <span class="caret"></span> -->
-<!--     </button> -->
-<!--     <ul class="dropdown-menu" role="menu"> -->
-<!--         <li><a href="#">Windows</a></li> -->
-<!--         <li><a href="#">Linux</a></li> -->
-<!--         <li><a href="#">Ubuntu</a></li> -->
-<!--     </ul> -->
+<!-- <div id="createvm"> -->
+<%--   <a class="btn btn-large btn-info" href="<c:url value='/createVM' />">Create VM</a> --%>
 <!-- </div> -->
 
-<!-- <h3> Select Operating System</h3> -->
-<!-- <div class="radio"> -->
-<!--   <label><input type="radio" name="optradio">Windows</label> -->
-<!-- </div> -->
-<!-- <div class="radio"> -->
-<!--   <label><input type="radio" name="optradio">Ubuntu</label> -->
+<!-- <br> -->
+
+
+<!-- <div id="vmstatus"> -->
+<%--   <a class="btn btn-large btn-info" href="<c:url value='/status' />">VM Status</a> --%>
 <!-- </div> -->
 
-<%-- <c:url var="crs" value="/crvm"/> --%>
+<!-- <br> -->
 
-<!-- <div class="container"> -->
-<!--   <h2>Form control: inline radio buttons</h2> -->
-<!--   <p>The form below contains three inline radio buttons:</p> -->
-<%--   <form role="form"> --%>
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 1 -->
-<!--     </label> -->
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 2 -->
-<!--     </label> -->
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 3 -->
-<!--     </label> -->
-<%--   </form> --%>
+
+<!-- <div id="vmstats"> -->
+<%--   <a class="btn btn-large btn-info" href="<c:url value='/stats' />">VM Statistics</a> --%>
 <!-- </div> -->
-<c:url var="vm" value="/vm"/>
-  
-    	<form:form role="form" action="${vm}" method="POST"  modelAttribute="vm">
-	<div class="form-group">
-	
-	 <label class="radio-inline">
-      <input path="os" value="win" type="radio" name="os" id="os">Windows
-    </label>
-    <label class="radio-inline">
-      <input path="os" value="ubu"  type="radio" name="os" id="os">Ubuntu
-    </label> 
-    
-<!-- 	<label for="Id">Id</label> -->
-        <!-- <input path="vm"  id="vmname" type="text" name="vmname" value=""  class="form-control" 
-        placeholder="Enter VM Name"> -->
-        <br>
-        <br>
-       
-    	<label for="vmname">VM Name:
-        <input path="vmname"  id="vmname" type="text" name="vmname" value=""  class="form-control" 
-        placeholder="Enter VM Name">        
-        </label>
-        <br>
-        <label for="vmname">VM status:
-        <input path="stat"  id="stat" type="text" name="stat" value=""  class="form-control" 
-        placeholder="Enter Select">
-        </label>
+
+
+<!-- 				<button type="submit">Create VM</button> -->
+<%-- 				 </form> --%>
+<%-- 				<form class="form-HOME" action="<c:url value='/status' />" method='GET'> --%>
+
+<!-- 				<button type="submit">VM status</button> -->
+<%-- 				 </form> --%>
+<%-- 				 <form class="form-HOME" action="<c:url value='/stats' />" method='GET'> --%>
+
+<!-- 				<button type="submit">VM stats</button> -->
+<%-- 				 </form> --%>
+			
+			
     </div>
-    <button type="submit">Add VM </button>
-    
-</form:form>
-
+</div>
 <!-- End Main Content -->
 </div>
 </div>

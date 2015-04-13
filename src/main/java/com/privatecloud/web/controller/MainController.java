@@ -1,6 +1,7 @@
 package com.privatecloud.web.controller;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,8 +14,6 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,18 +23,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import sun.misc.VM;
-
-import com.privatecloud.constants.AppConstants;
-import com.privatecloud.users.model.UserRoles;
+import com.privatecloud.users.dto.VMDto;
+import com.privatecloud.users.dto.vmstat;
 import com.privatecloud.users.model.Users;
+import com.privatecloud.users.model.Vm;
 import com.privatecloud.users.service.UsersService;
+import com.privatecloud.users.service.VMService;
 
 @Controller
 public class MainController {
 
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private VMService vMService;
 	
 	Logger LOGGER = LoggerFactory.getLogger("MainController");
 	
@@ -56,10 +58,10 @@ public class MainController {
 	public ModelAndView homePage() {
 
 		LOGGER.info("homePage");
+		List<Vm> vms = vMService.findAllVMs();
 		
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This is default page!");
+		model.addObject("vms", vms);
 		model.setViewName("home");
 		return model;
 
@@ -81,31 +83,48 @@ public class MainController {
 	
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
 	public ModelAndView statusPage() {
-
-		LOGGER.info("statusPage");
+//		ArrayList<String>[][] a = new ArrayList[7][3];
+		ArrayList<ArrayList<String>> a = new ArrayList<ArrayList<String>>();
+		ArrayList<String> q = new ArrayList<>(0);
 		
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "HERE");
-		model.addObject("message", "VM status");
-		model.setViewName("status");
+		LOGGER.info("statusPage");
+	//	String shw = vMService.Showstats();
+		ArrayList<VMDto> vmDtoList= vMService.Showstats();
+		
+//		for(int j=0;j<x.size();j++){
+//		
+//		q.add(x.get(j).split(",").toString());
+//		for(int w=0;w<q.size();w++){
+//			
+//			a.get(j).add(w,q.get(w).toString());
+//		}
+//		}
+		
 
+		LOGGER.info(""+a);
+		ModelAndView model = new ModelAndView();
+		model.addObject("shw", vmDtoList);
+		model.setViewName("status");
 		return model;
 
 	}
 	
-	@RequestMapping(value = "/stats", method = RequestMethod.GET)
-	public ModelAndView statsPage() {
-
-		LOGGER.info("statsPage");
 		
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "HERE");
-		model.addObject("message", "VM stats");
-		model.setViewName("stats");
-
-		return model;
-
-	}
+//	@RequestMapping(value = "/stats", method = RequestMethod.GET)
+//	public ModelAndView statsPage() {
+//
+//		LOGGER.info("statsPage");
+//		
+//		ModelAndView model = new ModelAndView();
+//		model.addObject("title", "HERE");
+//		model.addObject("message", "VM stats");
+//		model.setViewName("stats");
+//
+//		return model;
+//
+//	}
+	
+	
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
@@ -135,6 +154,147 @@ public class MainController {
 		return model;
 
 	}
+	
+	 
+	@RequestMapping(value = "/vm", method = RequestMethod.GET)
+	public ModelAndView listVMs() {
+
+		List<Vm> vms = vMService.findAllVMs();
+		
+		ModelAndView model = new ModelAndView();
+		model.addObject("vms", vms);
+		model.setViewName("createVM");
+		return model;
+
+	}
+	
+//	@RequestMapping(value = "/crvm", method = RequestMethod.GET)
+//	public ModelAndView create() {
+//
+//		String crv = vMService.Createvm();
+//		
+//		ModelAndView model = new ModelAndView();
+//		model.addObject("crv", crv);
+//		model.setViewName("VMcreated");
+//		return model;
+//
+//	}
+	
+//	@RequestMapping(value = "/crvm", method = RequestMethod.POST)
+//	public String crvm(@ModelAttribute("crvm")Vm vmname, BindingResult result, ModelMap model) {
+//		
+//		if (result.hasErrors()) {
+//            //return "error";
+//			//TODO: Create a comman error page
+//		}
+//		
+//		
+//		vMService.Createvm();
+//		//usersService.registerUser(vmname);
+//		//fetch vm
+//		
+////		model.addAttribute("vmname", vmname.getVmname());
+//		
+//		return "VMcreated";
+//	}
+//	
+//	@RequestMapping(value = "/showstatus", method = RequestMethod.GET)
+//	public ModelAndView show() {
+//
+//		String shw = vMService.Showstats();
+//		
+//		ModelAndView model = new ModelAndView();
+//		model.addObject("shw", shw);
+//		model.setViewName("status");
+//		return model;
+//
+//	}
+	
+	@RequestMapping(value = "/status", method = RequestMethod.POST)
+	public String showstatus(@ModelAttribute("status") ModelMap model) {
+		
+//		if (result.hasErrors()) {
+//            //return "error";
+//			//TODO: Create a comman error page
+//		}
+//		
+		
+		ArrayList<VMDto> x= vMService.Showstats();
+//		String[] a=x.split(",");
+		
+		
+		//usersService.registerUser(vmname);
+		//fetch vm
+		
+//  model.addAttribute("vmname", vmname.getVmname());
+		
+			//usersService.registerUser(vmname);
+		//fetch vm
+		
+				
+		return "status";
+	}
+	
+	@RequestMapping(value = "/stats", method = RequestMethod.GET)
+	public ModelAndView statsPage() {
+//		ArrayList<String>[][] a = new ArrayList[7][3];
+		ArrayList<ArrayList<String>> a = new ArrayList<ArrayList<String>>();
+		ArrayList<String> q = new ArrayList<>(0);
+		
+		LOGGER.info("statsPage");
+	//	String shw = vMService.Showstats();
+		ArrayList<vmstat> vmDtoList= vMService.sstats();
+		
+
+		
+
+		LOGGER.info(""+a);
+		ModelAndView model = new ModelAndView();
+		model.addObject("sta", vmDtoList);
+		model.setViewName("stats");
+		return model;
+
+	}
+	
+	
+	@RequestMapping(value = "/stats", method = RequestMethod.POST)
+	public String stats(@ModelAttribute("stats") ModelMap model) {
+		
+//		if (result.hasErrors()) {
+//            //return "error";
+//			//TODO: Create a comman error page
+//		}
+//		
+		
+		vMService.sstats();
+		//usersService.registerUser(vmname);
+		//fetch vm
+		
+//		model.addAttribute("vmname", vmname.getVmname());
+		
+		return "stats";
+	}
+	
+	@RequestMapping(value = "/vm", method = RequestMethod.POST)
+	public String vm(@ModelAttribute("vm")Vm vmname,  BindingResult result, ModelMap model) {
+		
+		if (result.hasErrors()) {
+            //return "error";
+			//TODO: Create a comman error page
+		}
+				
+		vMService.createVM(vmname);
+	
+		vMService.Createvm(vmname.getVmname(), vmname.getOs());
+		//usersService.registerUser(vmname);
+		//fetch vm
+		
+		model.addAttribute("vmname", vmname.getVmname());
+		model.addAttribute("os", vmname.getOs());
+		
+		return "createVM";
+	}
+	
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView showSignupPage() {
@@ -156,7 +316,7 @@ public class MainController {
 		usersService.registerUser(user);
 		//fetch vm
 		
-		model.addAttribute("vmname", VM.getState());
+		//model.addAttribute("vmname", VM.getState());
 		
 		return "login";
 	}
