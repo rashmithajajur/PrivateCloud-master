@@ -16,4 +16,5 @@ public interface VmDao {
     Vm findById(String Id);
     List<Vm> findAllVMs();
 	void persist(Vm transientInstance);
+	List<Vm> findAllVMsForUser(String username);
 }

@@ -40,4 +40,9 @@ public class UsersService {
 		
 		userDao.persist(user);
 	}
+
+	public boolean isUserNameAvailable(String uname) {
+		Users user = userDao.findByUserName(uname);
+		return (user == null);
+	}
 }

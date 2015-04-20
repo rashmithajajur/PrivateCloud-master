@@ -142,7 +142,7 @@ Start Main Content
        
     	<label for="vmname">VM Name:
         <input path="vmname"  id="vmname" type="text" name="vmname" value=""  class="form-control" 
-        placeholder="Enter VM Name">        
+        placeholder="Enter VM Name" required="required">        
         </label>
         <br>
         <label for="vmname">VM status:

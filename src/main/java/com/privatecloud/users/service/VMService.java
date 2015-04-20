@@ -133,6 +133,10 @@ public class VMService {
 	public List<Vm> findAllVMs() {
 		return vmDao.findAllVMs();
 	}
+	
+	public List<Vm> findAllVMsForUser(String username) {
+		return vmDao.findAllVMsForUser(username);
+	} 
 }
 	
 

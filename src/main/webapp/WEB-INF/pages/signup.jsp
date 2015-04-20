@@ -53,7 +53,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="navController">
                 <ul class="nav navbar-nav">
 					<li><a href="">Home</a></li> 
-					<li><a href="">Login</a></li>
+					<li><a href="<c:url value='/' />">Login</a></li>
 				  </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -69,37 +69,38 @@
 <div class="col-sm-8">
     <h2>Register</h2>
     <c:url var="signUpUrl" value="/signup" />
-	<form:form role="form" action="${signUpUrl}" method="POST"  modelAttribute="user">
-	<div class="form-group">
+	<form:form role="form" action="${signUpUrl}" method="POST"  modelAttribute="user" id="signupForm">
+	<div class="control-group" id="unamegroup">
     	<label for="username">Username:</label>
         <input path="username"  id="username" type="text" name="username" value=""  class="form-control" 
-        placeholder="Enter username">
+        placeholder="Enter username" required="required">
+        <span id="unamemsg"></span>
     </div>
-    <div class="form-group">
+    <div class="control-group">
     	<label for="firstname">First Name:</label>
         <input path="fname" id="fname" type="text" name="fname" value="" class="form-control" placeholder="Enter First Name"
-        pattern="^[a-zA-Z ,.'-]+$">
+        pattern="^[a-zA-Z ,.'-]+$" required="required">
     </div>
-    <div class="form-group">
+    <div class="control-group">
     	<label for="lname">Last Name:</label>
         <input path="lname" id="lname" type="text" name="lname" value="" class="form-control" placeholder="Enter Last Name"
-        pattern="^[a-zA-Z ,.'-]+$">
+        pattern="^[a-zA-Z ,.'-]+$" required="required">
     </div>
-    <div class="form-group">
+    <div class="control-group">
     	<label for="email">Email:</label>
         <input path="email" id="email" type="email" name="email" value=""  class="form-control" 
-        placeholder="Enter email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        placeholder="Enter email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="required">
     </div>
-    <div class="form-group">
+    <div class="control-group">
     	<label for="password">Password:</label>
         <input path="password" id="password" type="password" name="password" class="form-control" 
                 placeholder="Enter Password" title="At least one number, one lowercase and one uppercase letter. Minimum 4 characters">
     </div>
-    <div class="form-group">
+    <div class="control-group">
     	<label for="validate_password">Validate Password:</label>
         <input id="validate_password" type="password" name="vpassword" class="form-control" placeholder="Enter Password again">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form:form>    
  </div>
  <div class="col-sm-2"></div>
@@ -107,8 +108,14 @@
 </div>
 
 	<!-- Scripts -->
+	<script type="text/javascript">
+		function getContextPath() {
+		   return "${pageContext.request.contextPath}";
+		}
+	</script>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/validations.js"></script>
 </body>
 </html>

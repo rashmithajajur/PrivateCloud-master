@@ -92,4 +92,12 @@ public class VmDaoImpl implements VmDao {
         return query.list();
 		
 	}
+	
+	@Override
+	public List<Vm> findAllVMsForUser(String username){
+		Query query = getSessionFactory().getCurrentSession().createQuery("from Vm where username = ?")
+				.setParameter(0, username);
+        return query.list();
+		
+	}
 }
