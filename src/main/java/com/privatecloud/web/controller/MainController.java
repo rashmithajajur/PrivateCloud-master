@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.privatecloud.users.dto.ResponseObject;
 import com.privatecloud.users.dto.VMDto;
-import com.privatecloud.users.dto.vmstat;
+import com.privatecloud.users.dto.VMStatsDTO;
 import com.privatecloud.users.model.Users;
 import com.privatecloud.users.model.Vm;
 import com.privatecloud.users.service.UsersService;
@@ -44,6 +44,12 @@ public class MainController {
 
 	private static Logger LOGGER = LoggerFactory.getLogger("MainController");
 
+	private String getUserName() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    return auth.getName();
+	}
+	
+	
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
 
@@ -61,10 +67,8 @@ public class MainController {
 	public ModelAndView homePage() {
 
 		LOGGER.info("homePage");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String username = auth.getName();
 	 
-		List<Vm> vms = vMService.findAllVMsForUser(username);
+		List<Vm> vms = vMService.findAllVMsForUser(getUserName());
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("vms", vms);
@@ -170,91 +174,26 @@ public class MainController {
 		ModelAndView model = new ModelAndView();
 		model.addObject("vms", vms);
 		model.setViewName("createVM");
-		return model;
+		return homePage();
 
 	}
 
-	//	@RequestMapping(value = "/crvm", method = RequestMethod.GET)
-	//	public ModelAndView create() {
-	//
-	//		String crv = vMService.Createvm();
-	//		
-	//		ModelAndView model = new ModelAndView();
-	//		model.addObject("crv", crv);
-	//		model.setViewName("VMcreated");
-	//		return model;
-	//
-	//	}
-
-	//	@RequestMapping(value = "/crvm", method = RequestMethod.POST)
-	//	public String crvm(@ModelAttribute("crvm")Vm vmname, BindingResult result, ModelMap model) {
-	//		
-	//		if (result.hasErrors()) {
-	//            //return "error";
-	//			//TODO: Create a comman error page
-	//		}
-	//		
-	//		
-	//		vMService.Createvm();
-	//		//usersService.registerUser(vmname);
-	//		//fetch vm
-	//		
-	////		model.addAttribute("vmname", vmname.getVmname());
-	//		
-	//		return "VMcreated";
-	//	}
-	//	
-	//	@RequestMapping(value = "/showstatus", method = RequestMethod.GET)
-	//	public ModelAndView show() {
-	//
-	//		String shw = vMService.Showstats();
-	//		
-	//		ModelAndView model = new ModelAndView();
-	//		model.addObject("shw", shw);
-	//		model.setViewName("status");
-	//		return model;
-	//
-	//	}
-
 	@RequestMapping(value = "/status", method = RequestMethod.POST)
-	public String showstatus(@ModelAttribute("status") ModelMap model) {
-
-		//		if (result.hasErrors()) {
-		//            //return "error";
-		//			//TODO: Create a comman error page
-		//		}
-		//		
+	public String showstatus(@ModelAttribute("status") ModelMap model) {	
 
 		ArrayList<VMDto> x= vMService.Showstats();
-		//		String[] a=x.split(",");
-
-
-		//usersService.registerUser(vmname);
-		//fetch vm
-
-		//  model.addAttribute("vmname", vmname.getVmname());
-
-		//usersService.registerUser(vmname);
-		//fetch vm
-
-
+		
 		return "status";
 	}
 
 	@RequestMapping(value = "/stats", method = RequestMethod.GET)
 	public ModelAndView statsPage() {
-		//		ArrayList<String>[][] a = new ArrayList[7][3];
-		ArrayList<ArrayList<String>> a = new ArrayList<ArrayList<String>>();
-		ArrayList<String> q = new ArrayList<>(0);
 
 		LOGGER.info("statsPage");
-		//	String shw = vMService.Showstats();
-		ArrayList<vmstat> vmDtoList= vMService.sstats();
-
-
-
-
-		LOGGER.info(""+a);
+		
+		//ArrayList<VMStatsDTO> vmDtoList= vMService.sstats();
+		
+		ArrayList<VMStatsDTO> vmDtoList = vMService.getVMStats(getUserName());
 		ModelAndView model = new ModelAndView();
 		model.addObject("sta", vmDtoList);
 		model.setViewName("stats");
@@ -288,7 +227,8 @@ public class MainController {
 			//return "error";
 			//TODO: Create a comman error page
 		}
-
+		
+		vmname.setUsername(getUserName());
 		vMService.createVM(vmname);
 
 		vMService.Createvm(vmname.getVmname(), vmname.getOs());
@@ -372,6 +312,26 @@ public class MainController {
 		ResponseObject res = new ResponseObject();
 		res.setFlag(usersService.isUserNameAvailable(uname));
 		LOGGER.info("End: MainController.isUserNameAvailable");
+		return res;
+	}
+	
+	@RequestMapping(value = "/powerOn/{vmname}", headers="Accept=application/json" , method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject powerOn(@PathVariable String vmname) {
+		LOGGER.info("Start: MainController.powerOn");
+		ResponseObject res = new ResponseObject();
+		res.setFlag(vMService.powerOn(vmname));
+		LOGGER.info("End: MainController.powerOn");
+		return res;
+	}
+	
+	@RequestMapping(value = "/powerOff/{vmname}", headers="Accept=application/json" , method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject powerOff(@PathVariable String vmname) {
+		LOGGER.info("Start: MainController.powerOff");
+		ResponseObject res = new ResponseObject();
+		res.setFlag(vMService.powerOff(vmname));
+		LOGGER.info("End: MainController.powerOff");
 		return res;
 	}
 	

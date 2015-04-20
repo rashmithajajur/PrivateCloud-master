@@ -82,7 +82,6 @@
 		<div class="container">
   <h2></h2>
       <a  href="<c:url value='/createVM' />" class="btn btn-info" role="button">Create VM</a>
-      <a  href="<c:url value='/status' />" class="btn btn-info" role="button">VM Status</a>
       <a  href="<c:url value='/stats' />" class="btn btn-info" role="button">VM Statistics</a>
  
 </div>
@@ -101,21 +100,29 @@
         </tr>
         </thead>
         <tbody>
-       
-              <c:forEach items="${vms}" var="element"> 
-           <tr class= "sucess">
-			    <td>${element.id}</td>
+       		<c:set var="count" value="1" scope="page" />
+            <c:forEach items="${vms}" var="element"> 
+           	<tr class= "sucess">
+			    <td>${count}</td>
 			    <td>${element.vmname}</td>
-			    <td>${element.stat}</td>
-			   
+			     <c:choose>
+				      <c:when test="${element.isPowerOn==true}">
+				      	<td><button type="button" class="btn btn-danger" id="${element.vmname}" onclick="powerOff(this)">Power Off</button></td>
+				      </c:when>
+				
+				      <c:otherwise>
+				      	<td><button type="button" class="btn btn-success" id="${element.vmname}" onclick="powerOn(this)">Power On</button></td>
+				      </c:otherwise>
+				</c:choose>	
 			  </tr>
+			<c:set var="count" value="${count + 1}" scope="page"/>
 			</c:forEach>
 		
         </tbody>
          
 		</table>
 </div>
-        			
+        	
 	    </div>
   </div>
 <%-- 		<p>${Vm.vmname}</p> --%>
@@ -163,8 +170,15 @@
 </div>
 </div>
 	<!-- Scripts -->
+	<script type="text/javascript">
+		function getContextPath() {
+		   return "${pageContext.request.contextPath}";
+		}
+	</script>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.blockUI.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/vmpower.js"></script>
 </body>
 </html>

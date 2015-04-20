@@ -59,8 +59,7 @@
 					<li><a href="${logoutUrl}">Logout</a></li>
 				  </ul>
             </div>
-            
-            
+            </nav>
 
 
   
@@ -69,7 +68,7 @@
 <!-- 	<div class="form-group"> -->
 	
 <!-- 	 <button type="submit">Status</button> -->
-//<c:url var="shst" value="/stats"/>
+<c:url var="shst" value="/stats"/>
 <div class="table">
  
   <div class="container">
@@ -81,43 +80,33 @@
           <th>VM name</th>
         <th> CPU</th>
         <th>MEMORY</th>
+        <th>IP ADDRESS</th>
         </tr>
         </thead>
         <tbody>
         <tr class= "sucess">
            <tr>   
-           <%-- 
-           <c:forEach items="${shw}" varStatus="element" begin="0" end="2"> 
-           <c:forEach items="${element}" varStatus="a">
-            [${a.index}]: ${element[a.index]}<br/>
-			    <td>${a}</td> 
-			   
-			  
-			</c:forEach>
-			</c:forEach></tr>
-			--%>
+     
 			<c:forEach items="${sta}" var="element">
 			<tr>
 				<td>${element.vmName}</td>
 				<td>${element.cpu}</td>
 				<td>${element.mem}</td>
+				<td>${element.ip}</td>
 			</tr>
 			</c:forEach>
 			
         </tbody>
          
 		</table>
-</div>
+		</div>
         			
 	    </div>
-  </div>
+  	</div>
     </div>
-
-	
-            <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
-    </nav>
+    
 	<!-- Page Content -->
  
 	<!-- Scripts -->

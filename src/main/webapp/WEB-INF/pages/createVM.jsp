@@ -124,7 +124,7 @@ Start Main Content
 <!-- </div> -->
 <c:url var="vm" value="/vm"/>
   
-    	<form:form role="form" action="${vm}" method="POST"  modelAttribute="vm">
+    	<form:form role="form" action="${vm}" method="POST"  modelAttribute="vm" id="vmForm">
 	<div class="form-group">
 	
 	 <label class="radio-inline">
@@ -161,5 +161,17 @@ Start Main Content
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.blockUI.js"></script>
 </body>
 </html>
+<script type="text/javascript">
+$(document).ready(function() { 
+    $('#vmForm').submit(function() { 
+        $.blockUI({ 
+            message: 'Please wait while VM is getting created'
+        }); 
+ 
+ //       setTimeout($.unblockUI, 2000); 
+    }); 
+});
+</script>

@@ -11,7 +11,16 @@ public class Vm implements java.io.Serializable {
 	private String vmname;
 	private String username;
 	private String os;
+	private Boolean isPowerOn;
 	
+	public Boolean getIsPowerOn() {
+		return isPowerOn;
+	}
+
+	public void setPowerOn(Boolean isPowerOn) {
+		this.isPowerOn = isPowerOn;
+	}
+
 	public String getOs() {
 		return os;
 	}
