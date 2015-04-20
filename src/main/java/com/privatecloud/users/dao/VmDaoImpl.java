@@ -36,7 +36,7 @@ public class VmDaoImpl implements VmDao {
 		List<Vm> vms = new ArrayList<Vm>();
 		
 
-		vms = getSessionFactory().getCurrentSession().createQuery("select * from Vm ")
+		vms = getSessionFactory().getCurrentSession().createQuery(" from Vm where vmname = ? ")
 				.setParameter(0, vmname).list();
 		
 		if (vms.size() > 0) {

@@ -267,6 +267,8 @@ public class MainController {
 		return "login";
 	}
 
+	
+	
 	// customize the error message
 	private String getErrorMessage(HttpServletRequest request, String key) {
 
@@ -335,6 +337,16 @@ public class MainController {
 		return res;
 	}
 	
+	@RequestMapping(value = "/checkvname/{vname}", headers="Accept=application/json" , method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseObject isVmNameAvailable(@PathVariable String vname) {
+		LOGGER.info("Start: MainController.isVmNameAvailable");
+		ResponseObject resi = new ResponseObject();
+		resi.setFlag(vMService.isVmNameAvailable(vname));
+		LOGGER.info("End: MainController.isVmNameAvailable");
+		return resi;
+	}
+
 //	@ExceptionHandler(Exception.class)
 //	public ModelAndView handleError(HttpServletRequest req, Exception exception) {
 //		LOGGER.error("Request: " + req.getRequestURL() + " raised " + exception);

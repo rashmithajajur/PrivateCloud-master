@@ -15,6 +15,7 @@ import com.privatecloud.users.dao.VmDao;
 import com.privatecloud.users.dto.VMDto;
 import com.privatecloud.users.dto.VMStatsDTO;
 import com.privatecloud.users.model.Vm;
+
 /**
  * @author Rohan
  *
@@ -90,6 +91,12 @@ public class VMService {
 		}
 		return vmListToReturn;
 	} 
+
+	
+	public boolean isVmNameAvailable(String vname) {
+		Vm vmname = vmDao.findByVmName(vname);
+		return (vmname == null);
+	}
 	
 	public ArrayList<VMStatsDTO> getVMStats(String username)
 	{

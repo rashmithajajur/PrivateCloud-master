@@ -61,7 +61,37 @@
         <!-- /.container -->
     </nav>
 	<!-- Page Content -->
+	
+	
+<!-- // 	window.onload = function () { -->
+<!-- // 	    document.getElementById("password").onchange = validatePassword; -->
+<!-- // 	    document.getElementById("password_validate").onchange = validatePassword; -->
+<!-- // 	} -->
+<!-- // 	function validatePassword(){ -->
+<!-- // 	var pass2=document.getElementById("password_validate").value; -->
+<!-- // 	var pass1=document.getElementById("password").value; -->
+<!-- // 	if(pass1!=pass2) -->
+<!-- // 	    document.getElementById("password_validate").setCustomValidity("Passwords Don't Match"); -->
+<!-- // 	else -->
+<!-- // 	    document.getElementById("password_validate").setCustomValidity('');   -->
+<!-- // 	} -->
+
+<script type="text/javascript">
+
+
+	
+//   function checkPassword(str)
+//   {
+//     // at least one number, one lowercase and one uppercase letter
+//     // at least six characters
+//     var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+//     return re.test(str);
+//   }
+
+</script>
     <div class="container">
+    
+    
 
 <div class="row">	
 <!-- content -->
@@ -69,7 +99,7 @@
 <div class="col-sm-8">
     <h2>Register</h2>
     <c:url var="signUpUrl" value="/signup" />
-	<form:form role="form" action="${signUpUrl}" method="POST"  modelAttribute="user" id="signupForm">
+	<form:form role="form" action="${signUpUrl}" method="POST"  modelAttribute="user" id="signupForm"  >
 	<div class="control-group" id="unamegroup">
     	<label for="username">Username:</label>
         <input path="username"  id="username" type="text" name="username" value=""  class="form-control" 
@@ -94,11 +124,11 @@
     <div class="control-group">
     	<label for="password">Password:</label>
         <input path="password" id="password" type="password" name="password" class="form-control" 
-                placeholder="Enter Password" title="At least one number, one lowercase and one uppercase letter. Minimum 4 characters">
+                placeholder="Enter Password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"">
     </div>
     <div class="control-group">
     	<label for="validate_password">Validate Password:</label>
-        <input id="validate_password" type="password" name="vpassword" class="form-control" placeholder="Enter Password again">
+        <input id="validate_password" type="password" name="vpassword" class="form-control" placeholder="Enter Password again" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required="required">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form:form>    

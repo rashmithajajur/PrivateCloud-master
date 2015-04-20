@@ -96,7 +96,7 @@
           <tr>
           <th>ID</th>
           <th>VM's</th>
-        <th>STATUS</th>
+        
         </tr>
         </thead>
         <tbody>
