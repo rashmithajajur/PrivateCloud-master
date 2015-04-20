@@ -16,6 +16,7 @@ import com.privatecloud.users.dao.UserDao;
 import com.privatecloud.users.dao.VmDao;
 import com.privatecloud.users.dto.VMDto;
 import com.privatecloud.users.dto.vmstat;
+import com.privatecloud.users.model.Users;
 import com.privatecloud.users.model.Vm;
 import com.privatecloud.users.service.PrintIventory;
 import com.privatecloud.users.service.stats;
@@ -137,6 +138,13 @@ public class VMService {
 	public List<Vm> findAllVMsForUser(String username) {
 		return vmDao.findAllVMsForUser(username);
 	} 
+	
+	
+	public boolean isVmNameAvailable(String vname) {
+		Vm vmname = vmDao.findByVmName(vname);
+		return (vmname == null);
+	}
+
 }
 	
 

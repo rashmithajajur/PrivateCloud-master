@@ -128,10 +128,10 @@ Start Main Content
 	<div class="form-group">
 	
 	 <label class="radio-inline">
-      <input path="os" value="win" type="radio" name="os" id="os">Windows
+      <input path="os" value="win" type="radio" name="os" id="os" required>Windows
     </label>
     <label class="radio-inline">
-      <input path="os" value="ubu"  type="radio" name="os" id="os">Ubuntu
+      <input path="os" value="ubu"  type="radio" name="os" id="os" required>Ubuntu
     </label> 
     
 <!-- 	<label for="Id">Id</label> -->
@@ -139,16 +139,14 @@ Start Main Content
         placeholder="Enter VM Name"> -->
         <br>
         <br>
-       
-    	<label for="vmname">VM Name:
+       <div class="control-group" id="vnamegroup">
+    	<label for="vmname">VM Name: 
         <input path="vmname"  id="vmname" type="text" name="vmname" value=""  class="form-control" 
-        placeholder="Enter VM Name" required="required">        
+        placeholder="Enter VM Name" required="required"> 
+        <span id="vnamemsg"></span> 
         </label>
-        <br>
-        <label for="vmname">VM status:
-        <input path="stat"  id="stat" type="text" name="stat" value=""  class="form-control" 
-        placeholder="Enter Select">
-        </label>
+        </div>
+                   
     </div>
     <button type="submit">Add VM </button>
     
@@ -157,9 +155,17 @@ Start Main Content
 <!-- End Main Content -->
 </div>
 </div>
+
+<script type="text/javascript">
+		function getContextPath() {
+		   return "${pageContext.request.contextPath}";
+		}
+	</script>
 	<!-- Scripts -->
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/vmvalidation.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
 </body>
 </html>

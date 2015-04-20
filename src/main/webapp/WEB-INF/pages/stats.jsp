@@ -59,7 +59,14 @@
 					<li><a href="${logoutUrl}">Logout</a></li>
 				  </ul>
             </div>
-            
+             </div>
+
+	
+            <!-- /.navbar-collapse -->
+       
+        <!-- /.container -->
+    </nav>
+	<!-- Page Content -->
             
 
 
@@ -69,13 +76,17 @@
 <!-- 	<div class="form-group"> -->
 	
 <!-- 	 <button type="submit">Status</button> -->
-//<c:url var="shst" value="/stats"/>
+<div class="container">
+<div class="row">
+
+<div class="brand col-sm-13">
+<%-- //<c:url var="shst" value="/stats"/> --%>
 <div class="table">
  
   <div class="container">
-      <h3>Status of VM</h3>
+      <h3>Statistics of VM</h3>
       <div class="table-responsive">          
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
           <th>VM name</th>
@@ -111,14 +122,9 @@
         			
 	    </div>
   </div>
-    </div>
-
-	
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-	<!-- Page Content -->
+   </div>
+   </div>
+   </div>
  
 	<!-- Scripts -->
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>

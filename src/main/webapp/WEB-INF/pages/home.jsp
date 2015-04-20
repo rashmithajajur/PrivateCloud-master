@@ -97,7 +97,7 @@
           <tr>
           <th>ID</th>
           <th>VM's</th>
-        <th>STATUS</th>
+        
         </tr>
         </thead>
         <tbody>
@@ -106,7 +106,7 @@
            <tr class= "sucess">
 			    <td>${element.id}</td>
 			    <td>${element.vmname}</td>
-			    <td>${element.stat}</td>
+			  
 			   
 			  </tr>
 			</c:forEach>

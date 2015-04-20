@@ -59,23 +59,28 @@
 					<li><a href="${logoutUrl}">Logout</a></li>
 				  </ul>
             </div>
+            </div>
+      </nav>
             
             
-
-
-  
   
 <%--     	<form:form role="form" action="${shst}" method="POST"  modelAttribute="status"> --%>
 <!-- 	<div class="form-group"> -->
 	
 <!-- 	 <button type="submit">Status</button> -->
-//<c:url var="shst" value="/status"/>
+<div class="container">
+<div class="row">
+
+<div class="brand col-sm-13">
+	<div class="welcome">
+	<div class="table">
+<%-- <c:url var="shst" value="/status"/> --%>
 <div class="table">
  
   <div class="container">
       <h3>Status of VM</h3>
       <div class="table-responsive">          
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
           <th>VM name</th>
@@ -84,7 +89,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class= "sucess">
+<!--         <tr class= "sucess"> -->
            <tr>   
            <%-- 
            <c:forEach items="${shw}" varStatus="element" begin="0" end="2"> 
@@ -97,7 +102,7 @@
 			</c:forEach></tr>
 			--%>
 			<c:forEach items="${shw}" var="element">
-			<tr>
+			<tr class= "sucess">
 				<td>${element.vmName}</td>
 				<td>${element.vmState}</td>
 				<td>${element.vmConn}</td>
@@ -110,14 +115,19 @@
 </div>
         			
 	    </div>
+	    </div>
   </div>
-    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+<!--     </div> -->
 
 	
             <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+<!--         </div> -->
+<!--         /.container -->
+<!--     </nav> -->
 	<!-- Page Content -->
  
 	<!-- Scripts -->
