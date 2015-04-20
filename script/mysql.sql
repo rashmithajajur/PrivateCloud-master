@@ -33,3 +33,14 @@ INSERT INTO user_roles (username, role)
 VALUES ('rohan', 'ROLE_ADMIN');
 INSERT INTO user_roles (username, role)
 VALUES ('alex', 'ROLE_USER');
+
+CREATE  TABLE vm (
+    Id INT(11) NOT NULL AUTO_INCREMENT,
+    vmname VARCHAR(45) NOT NULL ,
+    username varchar(45) NOT NULL,
+    PRIMARY KEY (Id),
+     UNIQUE KEY vmi_username (vmname,username),
+   KEY fk_username_idx1 (username),
+   CONSTRAINT fk_username_idx1 FOREIGN KEY (username) REFERENCES users (username)  );
+   
+   
