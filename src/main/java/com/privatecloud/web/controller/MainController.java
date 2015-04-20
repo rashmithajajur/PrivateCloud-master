@@ -368,8 +368,10 @@ public class MainController {
 	@RequestMapping(value = "/checkuname/{uname}", headers="Accept=application/json" , method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseObject isUserNameAvailable(@PathVariable String uname) {
+		LOGGER.info("Start: MainController.isUserNameAvailable");
 		ResponseObject res = new ResponseObject();
 		res.setFlag(usersService.isUserNameAvailable(uname));
+		LOGGER.info("End: MainController.isUserNameAvailable");
 		return res;
 	}
 	

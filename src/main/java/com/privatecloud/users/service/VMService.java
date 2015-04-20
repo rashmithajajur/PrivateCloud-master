@@ -106,8 +106,8 @@ public class VMService {
 	public void home(Vm vm)
 	{
 		vm.getVmname();
-         vm.getStat();
-         vm.getOs();
+        // vm.getStat();
+        // vm.getOs();
 		
 	}
 	

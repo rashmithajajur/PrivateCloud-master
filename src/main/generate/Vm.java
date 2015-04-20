@@ -11,6 +11,7 @@ public class Vm implements java.io.Serializable {
 	private Int Id;
 	private String vmname;
 	private String stat;
+	private String os;
 	
 
 	public Vm() {

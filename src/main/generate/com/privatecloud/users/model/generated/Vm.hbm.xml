@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 19, 2015 10:24:34 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.privatecloud.users.model.Vm" table="vm" catalog="CMPE283">
+    <class name="com.privatecloud.users.model.generated.Vm" table="vm" catalog="CMPE283">
         <id name="id" type="java.lang.Integer">
             <column name="Id" />
             <generator class="identity" />
