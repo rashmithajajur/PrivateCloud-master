@@ -96,7 +96,7 @@
           <tr>
           <th>ID</th>
           <th>VM's</th>
-        
+        <th>STATUS</th>
         </tr>
         </thead>
         <tbody>
@@ -107,13 +107,15 @@
 			    <td>${element.vmname}</td>
 			     <c:choose>
 				      <c:when test="${element.isPowerOn==true}">
-				      	<td><button type="button" class="btn btn-danger" id="${element.vmname}" onclick="powerOff(this)">Power Off</button></td>
+				      	<td><button type="button" class="btn btn-warning" id="${element.vmname}" onclick="powerOff(this)">Power Off</button></td>
 				      </c:when>
 				
 				      <c:otherwise>
-				      	<td><button type="button" class="btn btn-success" id="${element.vmname}" onclick="powerOn(this)">Power On</button></td>
+				      	<td><button type="button" class="btn btn-success" id="${element.vmname}" onclick="powerOn(this)">Power On</button>
+				      	<button type="button" class="btn btn-danger" id="id_${element.vmname}" onclick="destroyVM(this)">Destroy VM</button></td>
 				      </c:otherwise>
 				</c:choose>	
+				
 			  </tr>
 			<c:set var="count" value="${count + 1}" scope="page"/>
 			</c:forEach>

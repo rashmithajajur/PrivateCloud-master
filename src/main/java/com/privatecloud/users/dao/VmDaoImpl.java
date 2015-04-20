@@ -100,4 +100,16 @@ public class VmDaoImpl implements VmDao {
         return query.list();
 		
 	}
+	
+	@Override
+	public void deleteVM(String vmname) {
+		log.debug("deleting Vm instance");
+		try {
+			sessionFactory.getCurrentSession().delete(findByVmName(vmname));
+			log.debug("delete successful");
+		} catch (RuntimeException re) {
+			log.error("delete failed", re);
+			throw re;
+		}
+	}
 }

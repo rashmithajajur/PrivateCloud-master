@@ -17,4 +17,5 @@ public interface VmDao {
     List<Vm> findAllVMs();
 	void persist(Vm transientInstance);
 	List<Vm> findAllVMsForUser(String username);
+	void deleteVM(String vmname);
 }

@@ -48,6 +48,7 @@ public class VMService {
 
 	@Transactional
 	public void createVM(Vm vm) {
+		InfraServices.create(vm.getVmname(), vm.getOs());
 		vmDao.persist(vm);
 	}
 
@@ -114,6 +115,16 @@ public class VMService {
 
 	public boolean powerOff(String vmname) {
 		return InfraServices.powerOFF(vmname);
+	}
+	
+	public boolean destroyVM(String vmname) {
+		
+		boolean isDestroyed = InfraServices.destroyVM(vmname);
+		if(isDestroyed)
+			vmDao.deleteVM(vmname);
+		
+		return isDestroyed;
+		
 	}
 }
 

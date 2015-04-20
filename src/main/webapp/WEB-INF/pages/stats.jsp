@@ -59,9 +59,7 @@
 					<li><a href="${logoutUrl}">Logout</a></li>
 				  </ul>
             </div>
-<<<<<<< HEAD
             </nav>
-=======
              </div>
 
 	
@@ -70,25 +68,17 @@
         <!-- /.container -->
     </nav>
 	<!-- Page Content -->
-            
->>>>>>> 8f9cc8329faa6bfb2516938396fb7b3b63715f59
-
-
-  
-  
 <%--     	<form:form role="form" action="${shst}" method="POST"  modelAttribute="status"> --%>
 <!-- 	<div class="form-group"> -->
 	
 <!-- 	 <button type="submit">Status</button> -->
-<<<<<<< HEAD
 <c:url var="shst" value="/stats"/>
-=======
+
 <div class="container">
 <div class="row">
 
 <div class="brand col-sm-13">
-<%-- //<c:url var="shst" value="/stats"/> --%>
->>>>>>> 8f9cc8329faa6bfb2516938396fb7b3b63715f59
+
 <div class="table">
  
   <div class="container">

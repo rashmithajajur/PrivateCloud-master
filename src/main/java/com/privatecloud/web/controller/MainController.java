@@ -220,25 +220,18 @@ public class MainController {
 		return "stats";
 	}
 
+	/**
+	 * This method is used to create a virtual machine
+	 * */
 	@RequestMapping(value = "/vm", method = RequestMethod.POST)
-	public String vm(@ModelAttribute("vm")Vm vmname,  BindingResult result, ModelMap model) {
-
-		if (result.hasErrors()) {
-			//return "error";
-			//TODO: Create a comman error page
-		}
-		
+	public ModelAndView vm(@ModelAttribute("vm")Vm vmname,  BindingResult result, ModelMap model) { 
 		vmname.setUsername(getUserName());
 		vMService.createVM(vmname);
-
-		vMService.Createvm(vmname.getVmname(), vmname.getOs());
-		//usersService.registerUser(vmname);
-		//fetch vm
 
 		model.addAttribute("vmname", vmname.getVmname());
 		model.addAttribute("os", vmname.getOs());
 
-		return "createVM";
+		return homePage();
 	}
 
 
@@ -334,6 +327,16 @@ public class MainController {
 		ResponseObject res = new ResponseObject();
 		res.setFlag(vMService.powerOff(vmname));
 		LOGGER.info("End: MainController.powerOff");
+		return res;
+	}
+	
+	@RequestMapping(value = "/destroyVM/{vmname}", headers="Accept=application/json" , method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject destroyVM(@PathVariable String vmname) {
+		LOGGER.info("Start: MainController.destroyVM");
+		ResponseObject res = new ResponseObject();
+		res.setFlag(vMService.destroyVM(vmname));
+		LOGGER.info("End: MainController.destroyVM");
 		return res;
 	}
 	

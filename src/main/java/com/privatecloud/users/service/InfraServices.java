@@ -183,8 +183,35 @@ public class InfraServices {
 					rootFolder).searchManagedEntity("VirtualMachine", vmname);
 
 			Task task = vm.powerOffVM_Task();
+
 			if (task.waitForTask() == Task.SUCCESS) {
 				LOGGER.info(vmname + " powered off");
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public static boolean destroyVM(String vmname) {
+
+		try {
+			ServiceInstance si = new ServiceInstance(new URL(
+					"https://130.65.132.112/sdk"), "administrator", "12!@qwQW",
+					true);
+
+			Folder rootFolder = si.getRootFolder();
+			VirtualMachine vm = (VirtualMachine) new InventoryNavigator(
+					rootFolder).searchManagedEntity("VirtualMachine", vmname);
+
+			Task task = vm.destroy_Task();
+
+			if (task.waitForTask() == Task.SUCCESS) {
+				LOGGER.info(vmname + " destroyed off");
 				return true;
 			} else {
 				return false;

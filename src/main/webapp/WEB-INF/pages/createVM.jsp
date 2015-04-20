@@ -69,59 +69,12 @@
 <div class="row">	
 <br>
 <br>
-Start Main Content
-<%-- <form action="/output/" name="InputCacheCheck" method="post"> --%>
-<!-- <div class="input-prepend input-append"> -->
-<!-- 	<div class="btn-group"> -->
-		
-<!-- 		<button class="btn dropdown-toggle" name="os" data-toggle="dropdown">Operating System -->
-<!-- 		<span class="caret"></span></button> -->
-<!-- 		<ul class="dropdown-menu"> -->
-<!-- 		<li><a href="#">Windows</a></li> -->
-<!-- 		<li><a href="#">Ubuntu</a></li> -->
-<!-- 		</ul> -->
-
-<!--     </div> -->
-<!-- </div> -->
+<div id="throbber" style="display:none;">
+    <img src="${pageContext.request.contextPath}/resources/images/process.gif" />
+    <h3>Please wait while VM is getting created</h3>
+</div>
 </form>
 
-
-<!-- <div class="btn-group"> -->
-<!--     <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown"> -->
-<!--         Select Operating System <span class="caret"></span> -->
-<!--     </button> -->
-<!--     <ul class="dropdown-menu" role="menu"> -->
-<!--         <li><a href="#">Windows</a></li> -->
-<!--         <li><a href="#">Linux</a></li> -->
-<!--         <li><a href="#">Ubuntu</a></li> -->
-<!--     </ul> -->
-<!-- </div> -->
-
-<!-- <h3> Select Operating System</h3> -->
-<!-- <div class="radio"> -->
-<!--   <label><input type="radio" name="optradio">Windows</label> -->
-<!-- </div> -->
-<!-- <div class="radio"> -->
-<!--   <label><input type="radio" name="optradio">Ubuntu</label> -->
-<!-- </div> -->
-
-<%-- <c:url var="crs" value="/crvm"/> --%>
-
-<!-- <div class="container"> -->
-<!--   <h2>Form control: inline radio buttons</h2> -->
-<!--   <p>The form below contains three inline radio buttons:</p> -->
-<%--   <form role="form"> --%>
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 1 -->
-<!--     </label> -->
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 2 -->
-<!--     </label> -->
-<!--     <label class="radio-inline"> -->
-<!--       <input type="radio" name="optradio">Option 3 -->
-<!--     </label> -->
-<%--   </form> --%>
-<!-- </div> -->
 <c:url var="vm" value="/vm"/>
   
     	<form:form role="form" action="${vm}" method="POST"  modelAttribute="vm" id="vmForm">
@@ -148,7 +101,7 @@ Start Main Content
         </div>
                    
     </div>
-    <button type="submit">Add VM </button>
+    <button type="submit" class="btn btn-primary">Add VM </button>
     
 </form:form>
 
@@ -174,9 +127,9 @@ Start Main Content
 $(document).ready(function() { 
     $('#vmForm').submit(function() { 
         $.blockUI({ 
-            message: 'Please wait while VM is getting created'
+            message: $('#throbber')
         }); 
- 
+        $("a").css("cursor","arrow").click(false);
  //       setTimeout($.unblockUI, 2000); 
     }); 
 });
