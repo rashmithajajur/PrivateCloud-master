@@ -49,8 +49,10 @@ public class InfraServices {
 			vmname = v;
 			if ("win".equals(os))
 				vmname1 = "T12-VM-Win-TPLATE";
-			else
-				vmname1 = "T12-VM01-Ubu";
+			else {
+				//vmname1 = "T12-VM01-Ubu";
+				vmname1 = "VMTools-VM";
+			}
 
 			ServiceInstance si = new ServiceInstance(new URL(
 					"https://130.65.132.112/sdk"), "administrator", "12!@qwQW",
