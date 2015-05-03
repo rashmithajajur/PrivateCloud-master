@@ -78,6 +78,11 @@ public class VMService {
 		ArrayList<VMStatsDTO> s=StatsService.status();
 		return s;
 	}
+	
+//	public ArrrayList<VMlog> host()
+//	{
+//		ArrayList<VMlog> h=
+//	}
 
 	public List<Vm> findAllVMs() {
 		return vmDao.findAllVMs();

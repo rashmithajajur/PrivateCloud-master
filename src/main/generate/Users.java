@@ -1,5 +1,6 @@
-// default package
-// Generated Apr 10, 2015 8:33:11 PM by Hibernate Tools 3.4.0.CR1
+package generate;
+
+// Generated May 3, 2015 12:42:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 

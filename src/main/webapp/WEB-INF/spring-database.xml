@@ -12,7 +12,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/CMPE283" />
 		<property name="username" value="root" />
-		<property name="password" value="rohan" />
+		<property name="password" value="root" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -23,6 +23,9 @@
 				<value>orm/Users.hbm.xml</value>
 				<value>orm/UserRoles.hbm.xml</value>
 				<value>orm/Vm.hbm.xml</value>
+				<value>orm/Alarm.hbm.xml</value>
+				<value>orm/Params.hbm.xml</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -35,6 +38,14 @@
 	</bean>
 
 	<bean id="userDao" class="com.privatecloud.users.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="alarmDao" class="com.privatecloud.users.dao.AlarmDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="paramsDao" class="com.privatecloud.users.dao.ParamsDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	

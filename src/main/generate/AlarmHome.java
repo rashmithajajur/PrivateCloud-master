@@ -11,13 +11,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
 /**
- * Home object for domain model class UserRoles.
- * @see generate.UserRoles
+ * Home object for domain model class Alarm.
+ * @see generate.Alarm
  * @author Hibernate Tools
  */
-public class UserRolesHome {
+public class AlarmHome {
 
-	private static final Log log = LogFactory.getLog(UserRolesHome.class);
+	private static final Log log = LogFactory.getLog(AlarmHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -32,8 +32,8 @@ public class UserRolesHome {
 		}
 	}
 
-	public void persist(UserRoles transientInstance) {
-		log.debug("persisting UserRoles instance");
+	public void persist(Alarm transientInstance) {
+		log.debug("persisting Alarm instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -43,8 +43,8 @@ public class UserRolesHome {
 		}
 	}
 
-	public void attachDirty(UserRoles instance) {
-		log.debug("attaching dirty UserRoles instance");
+	public void attachDirty(Alarm instance) {
+		log.debug("attaching dirty Alarm instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -54,8 +54,8 @@ public class UserRolesHome {
 		}
 	}
 
-	public void attachClean(UserRoles instance) {
-		log.debug("attaching clean UserRoles instance");
+	public void attachClean(Alarm instance) {
+		log.debug("attaching clean Alarm instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -65,8 +65,8 @@ public class UserRolesHome {
 		}
 	}
 
-	public void delete(UserRoles persistentInstance) {
-		log.debug("deleting UserRoles instance");
+	public void delete(Alarm persistentInstance) {
+		log.debug("deleting Alarm instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -76,11 +76,11 @@ public class UserRolesHome {
 		}
 	}
 
-	public UserRoles merge(UserRoles detachedInstance) {
-		log.debug("merging UserRoles instance");
+	public Alarm merge(Alarm detachedInstance) {
+		log.debug("merging Alarm instance");
 		try {
-			UserRoles result = (UserRoles) sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Alarm result = (Alarm) sessionFactory.getCurrentSession().merge(
+					detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -89,11 +89,11 @@ public class UserRolesHome {
 		}
 	}
 
-	public UserRoles findById(java.lang.Integer id) {
-		log.debug("getting UserRoles instance with id: " + id);
+	public Alarm findById(java.lang.Integer id) {
+		log.debug("getting Alarm instance with id: " + id);
 		try {
-			UserRoles instance = (UserRoles) sessionFactory.getCurrentSession()
-					.get("generate.UserRoles", id);
+			Alarm instance = (Alarm) sessionFactory.getCurrentSession().get(
+					"generate.Alarm", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -106,11 +106,11 @@ public class UserRolesHome {
 		}
 	}
 
-	public List findByExample(UserRoles instance) {
-		log.debug("finding UserRoles instance by example");
+	public List findByExample(Alarm instance) {
+		log.debug("finding Alarm instance by example");
 		try {
 			List results = sessionFactory.getCurrentSession()
-					.createCriteria("generate.UserRoles")
+					.createCriteria("generate.Alarm")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

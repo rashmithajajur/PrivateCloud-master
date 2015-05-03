@@ -1,5 +1,6 @@
-// default package
-// Generated Apr 10, 2015 8:33:12 PM by Hibernate Tools 3.4.0.CR1
+package generate;
+
+// Generated May 3, 2015 12:42:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.List;
 import javax.naming.InitialContext;
@@ -11,7 +12,7 @@ import org.hibernate.criterion.Example;
 
 /**
  * Home object for domain model class Vm.
- * @see .Vm
+ * @see generate.Vm
  * @author Hibernate Tools
  */
 public class VmHome {
@@ -88,10 +89,11 @@ public class VmHome {
 		}
 	}
 
-	public Vm findById(java.lang.String id) {
+	public Vm findById(java.lang.Integer id) {
 		log.debug("getting Vm instance with id: " + id);
 		try {
-			Vm instance = (Vm) sessionFactory.getCurrentSession().get("Vm", id);
+			Vm instance = (Vm) sessionFactory.getCurrentSession().get(
+					"generate.Vm", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -108,7 +110,8 @@ public class VmHome {
 		log.debug("finding Vm instance by example");
 		try {
 			List results = sessionFactory.getCurrentSession()
-					.createCriteria("Vm").add(Example.create(instance)).list();
+					.createCriteria("generate.Vm")
+					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			return results;

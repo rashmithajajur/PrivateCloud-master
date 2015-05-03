@@ -1,5 +1,6 @@
-// default package
-// Generated Apr 10, 2015 8:33:12 PM by Hibernate Tools 3.4.0.CR1
+package generate;
+
+// Generated May 3, 2015 12:42:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.List;
 import javax.naming.InitialContext;
@@ -11,7 +12,7 @@ import org.hibernate.criterion.Example;
 
 /**
  * Home object for domain model class Users.
- * @see .Users
+ * @see generate.Users
  * @author Hibernate Tools
  */
 public class UsersHome {
@@ -92,7 +93,7 @@ public class UsersHome {
 		log.debug("getting Users instance with id: " + id);
 		try {
 			Users instance = (Users) sessionFactory.getCurrentSession().get(
-					"Users", id);
+					"generate.Users", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -109,8 +110,8 @@ public class UsersHome {
 		log.debug("finding Users instance by example");
 		try {
 			List results = sessionFactory.getCurrentSession()
-					.createCriteria("Users").add(Example.create(instance))
-					.list();
+					.createCriteria("generate.Users")
+					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			return results;

@@ -1,6 +1,7 @@
 package com.privatecloud.users.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,10 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ElasticSearchDao {
 	
 	private static Client client;
@@ -57,40 +61,51 @@ public class ElasticSearchDao {
 		}
 	}
 	
+	//@Scheduled(fixedDelay=2000)
+	public void printMe(){
+		System.out.println("Start:: printMe @" + new Date());
+	}
 	
+	@Scheduled(fixedDelay=20000)
 	public static void checkAndUpdateSystemUsage() {
-//		Map<String, Long> vmList = VmStatisticsDao.getVMs();
-//		Map<String, Long> vmStatProperties = VmStatisticsDao.getVmStatProperties();
-//		
-//		for(String vm : vmList.keySet()) {
-//			
-//			Map<String, Long> vmPropertySet = VmStatisticsDao.getVMPropertyThresholdValues(vm);
-//			List<Map<String,Object>> searchResult = searchLogs(vm);
-//			
-//			for(Map<String,Object> resultEntry : searchResult) {
-//				
-//				for(String property: vmStatProperties.keySet()) {
-//					
-//					if(vmPropertySet.containsKey(property)) {
-//						
-//						long threshold = vmPropertySet.get(property);
-//						long logValue = ((Integer)resultEntry.get(property.toLowerCase())).longValue();
-//						//System.out.println(property + " threshold value - " + threshold + " | log value - " + logValue);
-//						
-//						if(logValue < threshold) {
-//							if(VmStatisticsDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property)))
-//								VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), false);
-//						} else {
-//							VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), true);
-//						}
-//						
-//					} else {
-//						//System.out.println(property + " threshold not set for " + vm);
-//					}
-//				}
+		System.out.println("Start:: checkAndUpdateSystemUsage @" + new Date());
+		Map<String, Long> vmList = VmStatisticsDao.getVMs();
+		Map<String, Long> vmStatProperties = VmStatisticsDao.getVmStatProperties();
+		
+		for(String vm : vmList.keySet()) {
+			
+			Map<String, Long> vmPropertySet = VmStatisticsDao.getVMPropertyThresholdValues(vm);
+			List<Map<String,Object>> searchResult = searchLogs(vm);
+			//System.out.println(searchResult);
+//			for (Map<String, Object> map : searchResult) {
+//				System.out.println("===================================");
+//				System.out.println(map);
+//				System.out.println("===================================");
 //			}
-//		}
-//		lastSearchTimeStamp = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date());
+			for(Map<String,Object> resultEntry : searchResult) {
+				
+				for(String property: vmStatProperties.keySet()) {
+					
+					if(vmPropertySet.containsKey(property)) {
+						
+						long threshold = vmPropertySet.get(property);
+						long logValue = ((Integer)resultEntry.get(property.toLowerCase())).longValue();
+						//System.out.println(property + " threshold value - " + threshold + " | log value - " + logValue);
+						
+						if(logValue < threshold) {
+							if(VmStatisticsDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property)))
+								VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), false);
+						} else {
+							VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), true);
+						}
+						
+					} else {
+						//System.out.println(property + " threshold not set for " + vm);
+					}
+				}
+			}
+		}
+		lastSearchTimeStamp = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date());
 	}
 
 }

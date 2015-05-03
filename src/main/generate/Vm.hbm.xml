@@ -1,21 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 10, 2015 8:33:12 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 3, 2015 12:42:56 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="Vm" table="vm" catalog="CMPE283">
-        <id name="vmname" type="string">
-            <column name="vmname" length="45" />
-            <generator class="assigned" />
+    <class name="generate.Vm" table="vm" catalog="CMPE283">
+        <id name="id" type="java.lang.Integer">
+            <column name="Id" />
+            <generator class="identity" />
         </id>
-        <property name="stat" type="string">
-            <column name="stat" length="10" not-null="true" />
+        <property name="vmname" type="string">
+            <column name="vmname" length="45" not-null="true" />
         </property>
-        <property name="created" type="timestamp">
-            <column name="created" length="19" not-null="true" />
-        </property>
-        <property name="modified" type="timestamp">
-            <column name="modified" length="19" not-null="true" />
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

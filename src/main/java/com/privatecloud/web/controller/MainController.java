@@ -2,6 +2,7 @@ package com.privatecloud.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,22 +27,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.privatecloud.users.dao.VmStatisticsDao;
 import com.privatecloud.users.dto.ResponseObject;
 import com.privatecloud.users.dto.VMDto;
 import com.privatecloud.users.dto.VMStatsDTO;
+import com.privatecloud.users.model.Alarm;
+import com.privatecloud.users.model.Alarmstatus;
+import com.privatecloud.users.model.Params;
 import com.privatecloud.users.model.Users;
+import com.privatecloud.users.model.VMlog;
 import com.privatecloud.users.model.Vm;
+import com.privatecloud.users.service.AlarmService;
+import com.privatecloud.users.service.ParamsService;
 import com.privatecloud.users.service.UsersService;
 import com.privatecloud.users.service.VMService;
+import com.privatecloud.utility.apputility;
 
 @Controller
 public class MainController {
 
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private AlarmService alarmService;
+	
+//	@Autowired
+//	private ElasticSearchDao eas;
+	
+//	@Autowired
+//	private ParamService paramService;
+	
 
 	@Autowired
 	private VMService vMService;
+	
+	@Autowired
+	private ParamsService paramsService;
 
 	private static Logger LOGGER = LoggerFactory.getLogger("MainController");
 
@@ -220,6 +243,21 @@ public class MainController {
 		return "stats";
 	}
 
+
+//	@RequestMapping(value = "/log", method = RequestMethod.GET)
+//	public ModelAndView logPage() {
+//
+//		LOGGER.info("logPage");
+//		
+//		//ArrayList<VMStatsDTO> vmDtoList= vMService.sstats();
+//		
+//		ArrayList<ElasticSearchDao> data = VMlog.getHost();
+//		ModelAndView model = new ModelAndView();
+//		model.addObject("dat", data);
+//		model.setViewName("log");
+//		return model;
+//
+//	}
 	/**
 	 * This method is used to create a virtual machine
 	 * */
@@ -248,19 +286,70 @@ public class MainController {
 	public String signup(@ModelAttribute("user")Users user, BindingResult result, ModelMap model) {
 
 		if (result.hasErrors()) {
-			//return "error";
-			//TODO: Create a comman error page
 		}
 
 		usersService.registerUser(user);
-		//fetch vm
-
-		//model.addAttribute("vmname", VM.getState());
 
 		return "login";
 	}
 
+	@RequestMapping(value = "/log", method = RequestMethod.GET)
+	public ModelAndView showlogPage() {
+
+		List<Vm> vms = vMService.findAllVMsForUser(getUserName());
+		List<Params> logs = paramsService.findAlllogs();
+
+		ModelAndView model = new ModelAndView();
+		model.addObject("vms", vms);
+		model.addObject("logs", logs);
+		model.setViewName("log");
+		
+//		eas.checkAndUpdateSystemUsage();
+		return model;
+	}
 	
+//	@RequestMapping(value = "/getAlarmPage", method = RequestMethod.GET)
+//	public ModelAndView showAlarmPage() {
+//
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("getAlarmPage");
+//
+//		return model;
+//	}
+
+	@RequestMapping(value = "/log", method = RequestMethod.POST)
+	public String log(@ModelAttribute("alarm")Alarm alarm, BindingResult result, ModelMap model) {
+
+		if (result.hasErrors()) {
+		}
+
+		alarmService.alarmSet(alarm);
+//		eas.checkAndUpdateSystemUsage();
+
+		return "getAlarmPage";
+	}
+	
+//	@RequestMapping(value = "/getAlarmPage", method = RequestMethod.POST)
+//	public String log(@ModelAttribute("params")Params params, BindingResult result, ModelMap model) {
+//
+//		if (result.hasErrors()) {
+//		}
+//
+//		paramService.paramSet(params);
+//
+//		return "login";
+//	}
+	
+//	@RequestMapping(value = "/getAlarmPage", method = RequestMethod.POST)
+//	public String log(@ModelAttribute("alarm")Alarm alarm, BindingResult result, ModelMap model) {
+//
+//		if (result.hasErrors()) {
+//		}
+//
+//		alarmService.alarmSet(alarm);
+//
+//		return "getAlarmPage";
+//	}
 	
 	// customize the error message
 	private String getErrorMessage(HttpServletRequest request, String key) {
@@ -349,6 +438,58 @@ public class MainController {
 		LOGGER.info("End: MainController.isVmNameAvailable");
 		return resi;
 	}
+	
+	
+	/*Service for getting Alarm page*/
+	@RequestMapping(value = "/getAlarmPage", method = RequestMethod.GET)
+	public ModelAndView getAlarmPage(HttpServletRequest request,Model model) {
+LOGGER.info("statsPage");
+		
+		//ArrayList<VMStatsDTO> vmDtoList= vMService.sstats();
+		String userName = (String) request.getSession()
+				.getAttribute("username");
+//		findByVmName(String vmname)
+		List<Vm> vms = vMService.findAllVMsForUser(getUserName());
+
+//		ModelAndView model = new ModelAndView();
+//		model.addObject("vms", vms);
+//		model.setViewName("home");
+//		return model;
+//		List<String> vmList = Vm.findByVmName(userName);
+		return new ModelAndView("alarmPage").addObject("vms", vms);
+		
+	}
+	
+	/*AJAX Call - Service for getting Alarm Threshold value for VM*/
+	@RequestMapping(value = "/getVMAlarmThreshold", method = RequestMethod.GET)
+	public @ResponseBody VMlog getVMAlarmThreshold(@ModelAttribute("vmName") String vmName) {
+		Map<String, Long> map =  VmStatisticsDao.getVMPropertyThresholdValues(vmName);
+		return  apputility.convertMapToVMAlarm(map);		
+	}
+	
+	/*AJAX Call - Service for setting Alarm Threshold value for VM*/
+	@RequestMapping(value = "/setVMAlarmThreshold", method = RequestMethod.POST)
+	public @ResponseBody boolean setVMAlarmThreshold(@ModelAttribute("vmAlarm") VMlog vmlog) {
+		return  apputility.setAlarmThresholdValuesForVM(vmlog);		
+	}
+
+//	/* Service for getting VM Statistics page -- Kibana and VM's Alarm status */
+//	@RequestMapping(value = "/getVmStatisticsPage", method = RequestMethod.GET)
+//	public ModelAndView getVmStatisticsPage(@ModelAttribute("vmName") String vmName) {
+//		Map<String, Long> map =  VmStatisticsDao.getVmPropertyThresholdExceedStatus(vmName);
+//		Alarmstatus alarmstatus= apputility.convertMapToAlarmstatus(map);
+//		return new ModelAndView("getVmStatisticsPage").addObject("vmName", vmName).addObject("alarmstatus", alarmstatus);
+//		
+//	}
+	
+	/* AJAX Call - Service for getting VM's Alarm status*/
+	@RequestMapping(value = "/getVmAlarmStatus", method = RequestMethod.GET)
+	public @ResponseBody Alarmstatus getVmAlarmStatus(@ModelAttribute("vmName") String vmName) {
+		Map<String, Long> map =  VmStatisticsDao.getVmPropertyThresholdExceedStatus(vmName);
+		return apputility.convertMapToAlarmstatus(map);		
+	}
+
+
 
 //	@ExceptionHandler(Exception.class)
 //	public ModelAndView handleError(HttpServletRequest req, Exception exception) {

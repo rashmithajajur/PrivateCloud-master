@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 2, 2015 5:45:05 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.privatecloud.users.model.Alarm" table="alarm" catalog="CMPE283">
+        <id name="alarmid" type="java.lang.Integer">
+            <column name="alarmid" />
+            <generator class="identity" />
+        </id>
+        <property name="vmId" type="int">
+            <column name="vm_id" not-null="true" />
+        </property>
+        <property name="propertyId" type="string">
+            <column name="property_id" length="16777215" not-null="true" />
+        </property>
+        <property name="thresholdValue" type="string">
+            <column name="threshold_value" length="16777215" not-null="true" />
+        </property>
+        <property name="limitExceed" type="string">
+            <column name="limit_exceed" length="16777215" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -53,12 +53,18 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <c:url value="/logout" var="logoutUrl" />
             <c:url value="/home" var="homeUrl" />
+            <c:url value="/log" var="logUrl" />
+             
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="navController">
                 <ul class="nav navbar-nav">
 					<li><a href="${homeUrl} ">Home</a></li> 
 					<li><a href="${logoutUrl}">Logout</a></li>
+					<li><a href="${logUrl}">Log</a></li>
+					<li><a href="${alaUrl}">alarm</a></li>
+					<li><a href="${alUrl}">vmalarm</a></li>
 				  </ul>
             </div>
+            
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -127,45 +133,7 @@
         	
 	    </div>
   </div>
-<%-- 		<p>${Vm.vmname}</p> --%>
-<!--                 <tr> -->
-<%--                     <td><c:out value="${Vm}" /></td> --%>
-<%--                     <td><c:out value="${vm.vmname}" /></td> --%>
-<%--                     <td><c:out value="${vm.stats}" /></td> --%>
-<%--                     <td><c:out value="${user.profession}" /></td> --%>
-               
-          
-<%-- 		<form class="form-HOME" action="<c:url value='/createVM' />" method='GET'> --%>
-<br>
-<br>
 
-<!-- <div id="createvm"> -->
-<%--   <a class="btn btn-large btn-info" href="<c:url value='/createVM' />">Create VM</a> --%>
-<!-- </div> -->
-
-<!-- <br> -->
-
-
-<!-- <div id="vmstatus"> -->
-<%--   <a class="btn btn-large btn-info" href="<c:url value='/status' />">VM Status</a> --%>
-<!-- </div> -->
-
-<!-- <br> -->
-
-
-<!-- <div id="vmstats"> -->
-<%--   <a class="btn btn-large btn-info" href="<c:url value='/stats' />">VM Statistics</a> --%>
-<!-- </div> -->
-
-<!-- <table> -->
-<%-- 			<c:forEach items="${vms}" var="element">  --%>
-<!-- 			  <tr> -->
-<%-- 			    <td>${element.id}</td> --%>
-<%-- 			    <td>${element.vmname}</td> --%>
-<%-- 			    <td>${element.stat}</td> --%>
-<!-- 			  </tr> -->
-<%-- 			</c:forEach> --%>
-<!-- 			</table> -->
     </div>
 </div>
 <!-- End Main Content -->
