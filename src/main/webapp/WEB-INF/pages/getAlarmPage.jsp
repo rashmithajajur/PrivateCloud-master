@@ -44,12 +44,12 @@
 <!-- 					</a> -->
 				</div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <c:url value="/getVMAlarmThreshold" var="alaUrl" />
+            
             <c:url value="/home" var="homeUrl" />
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="navController">
                 <ul class="nav navbar-nav">
 					<li><a href="${homeUrl} ">Home</a></li> 
-					<li><a href="${alaUrl}">vmalarm</a></li>
+					
 				  </ul>
             </div>
              </div>

@@ -59,9 +59,8 @@
                 <ul class="nav navbar-nav">
 					<li><a href="${homeUrl} ">Home</a></li> 
 					<li><a href="${logoutUrl}">Logout</a></li>
-					<li><a href="${logUrl}">Log</a></li>
-					<li><a href="${alaUrl}">alarm</a></li>
-					<li><a href="${alUrl}">vmalarm</a></li>
+					<li><a href="${logUrl}">Set Alarm</a></li>
+					
 				  </ul>
             </div>
             
@@ -118,7 +117,10 @@
 				
 				      <c:otherwise>
 				      	<td><button type="button" class="btn btn-success" id="${element.vmname}" onclick="powerOn(this)">Power On</button>
-				      	<button type="button" class="btn btn-danger" id="id_${element.vmname}" onclick="destroyVM(this)">Destroy VM</button></td>
+				      	<button type="button" class="btn btn-danger" id="id_${element.vmname}" onclick="destroyVM(this)">Destroy VM</button>
+				      	
+				      	
+				      	</td>
 				      </c:otherwise>
 				</c:choose>	
 				

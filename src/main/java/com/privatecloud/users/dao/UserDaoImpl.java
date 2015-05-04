@@ -32,6 +32,18 @@ public class UserDaoImpl implements UserDao {
 		}
 
 	}
+	
+	public String getUserEmailFromVmName(String vmname){
+		
+	List<Users> vms;
+		
+		vms = getSessionFactory().getCurrentSession().createQuery("select u "
+                + " from Users u, Vm v where u.username=v.username and v.vmname=?")
+				.setParameter(0, vmname).list();
+		
+		return vms.get(0).getEmail();
+		
+	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

@@ -13,13 +13,34 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import com.privatecloud.users.dao.UserDao;
+import com.privatecloud.utility.mailutility;
 
 @Service
 public class ElasticSearchDao {
 	
+	@Autowired
+	private UserDao userDao;
+	
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+	
 	private static Client client;
+	
+	boolean exceed=false;
+	boolean normal=true;
+	
+	@Autowired
+	private mailutility mailutility;
 	//String lastSearchTimeStamp = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date());
 	private static String lastSearchTimeStamp = "2015-04-25T02:58:00Z";
 	
@@ -67,7 +88,7 @@ public class ElasticSearchDao {
 	}
 	
 	@Scheduled(fixedDelay=20000)
-	public static void checkAndUpdateSystemUsage() {
+	public void checkAndUpdateSystemUsage() {
 		System.out.println("Start:: checkAndUpdateSystemUsage @" + new Date());
 		Map<String, Long> vmList = VmStatisticsDao.getVMs();
 		Map<String, Long> vmStatProperties = VmStatisticsDao.getVmStatProperties();
@@ -93,12 +114,26 @@ public class ElasticSearchDao {
 						//System.out.println(property + " threshold value - " + threshold + " | log value - " + logValue);
 						
 						if(logValue < threshold) {
+				
 							if(VmStatisticsDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property)))
 								VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), false);
+							if(!exceed)
+							{
+							mailutility.sendMail(vm, property, userDao.getUserEmailFromVmName(vm),false);
+							exceed=true;
+							}
 						} else {
+							if(!
+									VmStatisticsDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property))) {
+
 							VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), true);
+							if(normal)
+							{
+							mailutility.sendMail(vm, property, userDao.getUserEmailFromVmName(vm),true);
+							normal=false;
+							}
 						}
-						
+						}
 					} else {
 						//System.out.println(property + " threshold not set for " + vm);
 					}

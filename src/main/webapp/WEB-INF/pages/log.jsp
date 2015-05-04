@@ -27,9 +27,10 @@
 </head>
 
 <body>
-
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    
+	
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -44,42 +45,40 @@
 <!-- 					</a> -->
 				</div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <c:url value="/getAlarmPage" var="alaUrl" />
-             <c:url value="/getVMAlarmThreshold" var="alUrl" />
+          
             <c:url value="/home" var="homeUrl" />
+            <c:url value="/logout" var="logoutUrl" />
+            
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="navController">
                 <ul class="nav navbar-nav">
 					<li><a href="${homeUrl} ">Home</a></li> 
-					<li><a href="${alaUrl}">alarm</a></li>
-					<li><a href="${alUrl}">vmalarm</a></li>
+					<li><a href="${logoutUrl} ">Logout</a></li> 
 				  </ul>
             </div>
-             </div>
-
-	
-            <!-- /.navbar-collapse -->
+             </div>          <!-- /.navbar-collapse -->
        
         <!-- /.container -->
     </nav>
 <div class="container">
-<div class="row">
-
 <div class="brand col-sm-13">
 <div class="table">
- 
   <div class="container">
-      <h3>Statistics of VM</h3>
-      <div class="table-responsive">          
+      <h3>Cloud Watch Alarm</h3>
+      <p>	Cloud Watch Alarm.  </p>
+	<p>	Here you can set an alarm for particular VM. So when the usage reaches particular Threshold level. you will be getting a notification. </p>
+      
+<!--       <div class="table-responsive">           -->
 <div class="row">	
 <!-- content -->
 <div class="col-sm-2"></div>
 <div class="col-sm-8">
- 
-    <c:url var="logurl" value="/log" />
-    <c:url value="/getAlarmPage" var="alaUrl" />
-             <c:url value="/getVMAlarmThreshold" var="alUrl" />
-              <c:url value="/setVMAlarmThreshold" var="salUrl" />
-              <c:url value="/getVmAlarmStatus" var="salUrl" />
+ <c:url value="/logout" var="logoutUrl" />
+            <c:url value="/home" var="homeUrl" />
+<%--     <c:url var="logurl" value="/log" /> --%>
+<%--     <c:url value="/getAlarmPage" var="alaUrl" /> --%>
+<%--              <c:url value="/getVMAlarmThreshold" var="alUrl" /> --%>
+<%--               <c:url value="/setVMAlarmThreshold" var="salUrl" /> --%>
+<%--               <c:url value="/getVmAlarmStatus" var="salUrl" /> --%>
 	<form:form role="form" action="${logurl}" method="POST"  modelAttribute="alarm" id="alarmset"  >
 
 <div class="control-group" id="unamegroup">
@@ -103,24 +102,35 @@
     	<label for="threshold_value">Threshold Value</label>
         <input path="threshold_value"  id="threshold_value" type="text" name="thresholdValue" value=""  class="form-control" 
         placeholder="Enter username" required="required">
-        <span id="unamemsg"></span>
+<!--         <span id="unamemsg"></span> -->
     </div>
     <div class="control-group" id="unamegroup">
     	<label for="limit_exceed">limit_exceed</label>
         <input path="limit_exceed"  id="limit_exceed" type="text" name="limitExceed" value=""  class="form-control" 
         placeholder="Enter limit_exceed" required="required">
-        <span id="unamemsg"></span>limit_exceed
+<!--         <span id="unamemsg"></span> -->
     </div>
  
-     <button type="submit" class="btn btn-primary">Submit</button>
+ <br>
+ <br>
+     <button type="submit" class="btn btn-default">Set Alarm</button>
   </form:form>   
+  
         			
+<!--         		<a>http://localhost:5601/#/dashboard/Log-dashboard?_g=()&_a=(filters:!(),panels:!((col:1,id:log-cpu,row:1,size_x:3,size_y:2,type:visualization),(col:4,id:log-diskread,row:1,size_x:5,size_y:4,type:visualization),(col:7,id:log-diskwrite,row:5,size_x:3,size_y:2,type:visualization),(col:10,id:log-memory,row:1,size_x:3,size_y:2,type:visualization),(col:1,id:Memory,row:3,size_x:3,size_y:2,type:visualization),(col:4,id:Memory-Line,row:5,size_x:3,size_y:2,type:visualization),(col:7,id:Area-CPU,row:7,size_x:6,size_y:7,type:visualization),(col:10,id:log-net,row:14,size_x:3,size_y:2,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'*')),title:'Log%20dashboard') </a>	 -->
 	    </div>
   </div>
    </div>
    </div>
    </div>
- 
+   
+ </div>
+<!--  </div> -->
+  <br>
+ <br>
+ <iframe  width="1350" height="900" src="http://localhost:5601/#/dashboard/Log-dashboard?_g=()&_a=(filters:!(),panels:!((col:1,id:log-cpu,row:1,size_x:3,size_y:2,type:visualization),(col:4,id:log-diskread,row:3,size_x:4,size_y:2,type:visualization),(col:7,id:log-diskwrite,row:5,size_x:3,size_y:2,type:visualization),(col:4,id:log-memory,row:1,size_x:3,size_y:2,type:visualization),(col:1,id:Memory,row:3,size_x:3,size_y:2,type:visualization),(col:4,id:Memory-Line,row:5,size_x:3,size_y:2,type:visualization),(col:7,id:Area-CPU,row:1,size_x:5,size_y:2,type:visualization),(col:8,id:log-net,row:3,size_x:3,size_y:2,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'*')),title:'Log%20dashboard')">
+<!-- <p>Your browser does not support iframes.</p> -->
+</iframe>
 	<!-- Scripts -->
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
