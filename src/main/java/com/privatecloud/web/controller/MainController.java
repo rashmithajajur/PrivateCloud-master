@@ -27,7 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.privatecloud.users.dao.VmStatisticsDao;
+import com.privatecloud.function.Paramsfunction;
+import com.privatecloud.users.dao.ParameterDao;
 import com.privatecloud.users.dto.ResponseObject;
 import com.privatecloud.users.dto.VMDto;
 import com.privatecloud.users.dto.VMStatsDTO;
@@ -41,7 +42,6 @@ import com.privatecloud.users.service.AlarmService;
 import com.privatecloud.users.service.ParamsService;
 import com.privatecloud.users.service.UsersService;
 import com.privatecloud.users.service.VMService;
-import com.privatecloud.utility.apputility;
 
 @Controller
 public class MainController {
@@ -463,21 +463,21 @@ LOGGER.info("statsPage");
 	/*AJAX Call - Service for getting Alarm Threshold value for VM*/
 	@RequestMapping(value = "/getVMAlarmThreshold", method = RequestMethod.GET)
 	public @ResponseBody VMlog getVMAlarmThreshold(@ModelAttribute("vmName") String vmName) {
-		Map<String, Long> map =  VmStatisticsDao.getVMPropertyThresholdValues(vmName);
-		return  apputility.convertMapToVMAlarm(map);		
+		Map<String, Long> map =  ParameterDao.getVMPropertyThresholdValues(vmName);
+		return  Paramsfunction.convertMapToVMAlarm(map);		
 	}
 	
 	/*AJAX Call - Service for setting Alarm Threshold value for VM*/
 	@RequestMapping(value = "/setVMAlarmThreshold", method = RequestMethod.POST)
 	public @ResponseBody boolean setVMAlarmThreshold(@ModelAttribute("vmAlarm") VMlog vmlog) {
-		return  apputility.setAlarmThresholdValuesForVM(vmlog);		
+		return  Paramsfunction.setAlarmThresholdValuesForVM(vmlog);		
 	}
 
 //	/* Service for getting VM Statistics page -- Kibana and VM's Alarm status */
 //	@RequestMapping(value = "/getVmStatisticsPage", method = RequestMethod.GET)
 //	public ModelAndView getVmStatisticsPage(@ModelAttribute("vmName") String vmName) {
-//		Map<String, Long> map =  VmStatisticsDao.getVmPropertyThresholdExceedStatus(vmName);
-//		Alarmstatus alarmstatus= apputility.convertMapToAlarmstatus(map);
+//		Map<String, Long> map =  ParameterDao.getVmPropertyThresholdExceedStatus(vmName);
+//		Alarmstatus alarmstatus= Paramsfunction.convertMapToAlarmstatus(map);
 //		return new ModelAndView("getVmStatisticsPage").addObject("vmName", vmName).addObject("alarmstatus", alarmstatus);
 //		
 //	}
@@ -485,8 +485,8 @@ LOGGER.info("statsPage");
 	/* AJAX Call - Service for getting VM's Alarm status*/
 	@RequestMapping(value = "/getVmAlarmStatus", method = RequestMethod.GET)
 	public @ResponseBody Alarmstatus getVmAlarmStatus(@ModelAttribute("vmName") String vmName) {
-		Map<String, Long> map =  VmStatisticsDao.getVmPropertyThresholdExceedStatus(vmName);
-		return apputility.convertMapToAlarmstatus(map);		
+		Map<String, Long> map =  ParameterDao.getVmPropertyThresholdExceedStatus(vmName);
+		return Paramsfunction.convertMapToAlarmstatus(map);		
 	}
 
 

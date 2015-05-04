@@ -44,12 +44,12 @@
 <!-- 					</a> -->
 				</div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            
+            <c:url value="/logout" var="logoutUrl" />
             <c:url value="/home" var="homeUrl" />
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="navController">
                 <ul class="nav navbar-nav">
 					<li><a href="${homeUrl} ">Home</a></li> 
-					
+					<li><a href="${logoutUrl} ">Log Out</a></li> 
 				  </ul>
             </div>
              </div>
@@ -67,7 +67,7 @@
 <div class="table">
  
   <div class="container">
-      <h3>Statistics of VM</h3>
+      <h3>Alarm has been Successfully Set </h3>
       <div class="table-responsive">          
       
 </div>        			
@@ -76,6 +76,9 @@
    </div>
    </div>
    </div>
+    <iframe  width="1350" height="900" src="http://localhost:5601/#/dashboard/Log-dashboard?_g=()&_a=(filters:!(),panels:!((col:1,id:log-cpu,row:1,size_x:3,size_y:2,type:visualization),(col:4,id:log-diskread,row:3,size_x:4,size_y:2,type:visualization),(col:7,id:log-diskwrite,row:5,size_x:3,size_y:2,type:visualization),(col:4,id:log-memory,row:1,size_x:3,size_y:2,type:visualization),(col:1,id:Memory,row:3,size_x:3,size_y:2,type:visualization),(col:4,id:Memory-Line,row:5,size_x:3,size_y:2,type:visualization),(col:7,id:Area-CPU,row:1,size_x:5,size_y:2,type:visualization),(col:8,id:log-net,row:3,size_x:3,size_y:2,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'*')),title:'Log%20dashboard')">
+<!-- <p>Your browser does not support iframes.</p> -->
+</iframe>
  
 	<!-- Scripts -->
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>

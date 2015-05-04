@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.privatecloud.function.Emailfunction;
 import com.privatecloud.users.dao.UserDao;
-import com.privatecloud.utility.mailutility;
 
 @Service
 public class ElasticSearchDao {
@@ -40,7 +40,7 @@ public class ElasticSearchDao {
 	boolean normal=true;
 	
 	@Autowired
-	private mailutility mailutility;
+	private Emailfunction Emailfunction;
 	//String lastSearchTimeStamp = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date());
 	private static String lastSearchTimeStamp = "2015-04-25T02:58:00Z";
 	
@@ -90,12 +90,12 @@ public class ElasticSearchDao {
 	@Scheduled(fixedDelay=20000)
 	public void checkAndUpdateSystemUsage() {
 		System.out.println("Start:: checkAndUpdateSystemUsage @" + new Date());
-		Map<String, Long> vmList = VmStatisticsDao.getVMs();
-		Map<String, Long> vmStatProperties = VmStatisticsDao.getVmStatProperties();
+		Map<String, Long> vmList = ParameterDao.getVMs();
+		Map<String, Long> vmStatProperties = ParameterDao.getVmStatProperties();
 		
 		for(String vm : vmList.keySet()) {
 			
-			Map<String, Long> vmPropertySet = VmStatisticsDao.getVMPropertyThresholdValues(vm);
+			Map<String, Long> vmPropertySet = ParameterDao.getVMPropertyThresholdValues(vm);
 			List<Map<String,Object>> searchResult = searchLogs(vm);
 			//System.out.println(searchResult);
 //			for (Map<String, Object> map : searchResult) {
@@ -115,21 +115,21 @@ public class ElasticSearchDao {
 						
 						if(logValue < threshold) {
 				
-							if(VmStatisticsDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property)))
-								VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), false);
+							if(ParameterDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property)))
+								ParameterDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), false);
 							if(!exceed)
 							{
-							mailutility.sendMail(vm, property, userDao.getUserEmailFromVmName(vm),false);
+							Emailfunction.sendMail(vm, property, userDao.getUserEmailFromVmName(vm),false);
 							exceed=true;
 							}
 						} else {
 							if(!
-									VmStatisticsDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property))) {
+									ParameterDao.isVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property))) {
 
-							VmStatisticsDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), true);
+							ParameterDao.setVmPropertyLimitExceeded(vmList.get(vm), vmStatProperties.get(property), true);
 							if(normal)
 							{
-							mailutility.sendMail(vm, property, userDao.getUserEmailFromVmName(vm),true);
+							Emailfunction.sendMail(vm, property, userDao.getUserEmailFromVmName(vm),true);
 							normal=false;
 							}
 						}
